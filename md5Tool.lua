@@ -38,11 +38,10 @@ function getMd5ByPath(strbuff,dir)
             if attr.mode == "directory" then
                 strbuff = getMd5ByPath(strbuff,path)
             else
-                print(path)
                 if isEnvalidFile(path) == false then
-                    local tempFile = io.open(path,"r+")
-                    local fileData = tempFile:read("*a")
-                    tempFile.close()
+                    local tempFile = assert(io.open(path,"r+"))local fileData = tempFile:read("*a")
+                    -- tempFile.close()
+                    io.close(tempFile)
 
                     local md5str = md5.sumhexa(fileData)
                     -- md5str = os.time()
