@@ -133,16 +133,16 @@ end
 print("开始上传文件")
 if Neiwang then
     print("密码 " .. NeiwangPass)
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/res","root@10.0.81.200:/var/www/html/package")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/src","root@10.0.81.200:/var/www/html/package")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/project.manifest","root@10.0.81.200:/var/www/html")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/version.manifest","root@10.0.81.200:/var/www/html")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/res","root@" .. Ip .. ":/var/www/html/package")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/src","root@" .. Ip .. ":/var/www/html/package")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/project.manifest","root@" .. Ip .. ":/var/www/html")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/version.manifest","root@" .. Ip .. ":/var/www/html")
 else
     print("密码 " .. WaiwangPass)
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/res","root@121.41.76.100:/var/www/html/package")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/src","root@121.41.76.100:/var/www/html/package")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/project.manifest","root@121.41.76.100:/var/www/html")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/version.manifest","root@121.41.76.100:/var/www/html")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/res","root@" .. Ip .. ":/var/www/html/package")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/src","root@" .. Ip .. ":/var/www/html/package")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/project.manifest","root@" .. Ip .. ":/var/www/html")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/version.manifest","root@" .. Ip .. ":/var/www/html")
 end
 
 
