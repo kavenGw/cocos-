@@ -146,7 +146,7 @@ else
 end
 
 
-
+print("注意GSLua serverlist 中ip")
 print("完成 2 秒后开始生成apk")
 os.execute("sleep " .. 2)
 
@@ -158,6 +158,11 @@ if Neiwang then
         os.execute("mv /Users/wucan/Desktop/BONS/cocos/root/BONSX/simulator/android/BONSX-debug.apk /Users/wucan/Desktop/BONS/策划配置/root/版本安装包/北欧女神像内网.apk")
     end
 else
+    print("外网备份")
+    deleteDir("/Users/wucan/Desktop/BONS/cocos/root/Wai/src")
+    deleteDir("/Users/wucan/Desktop/BONS/cocos/root/Wai/res")
+    copy("outputWai/src","/Users/wucan/Desktop/BONS/cocos/root/Wai")
+    copy("outputWai/res","/Users/wucan/Desktop/BONS/cocos/root/Wai")
     -- if generateAPK then
     --     print("开始生成android安装包")
     --     os.execute("/Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/gradlew assembleRelease")
