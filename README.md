@@ -15,3 +15,6 @@ lua + lfs + md5
 
 分为内网和外网
 外网中间多一步编译为luac
+
+备注
+需要自己生成一个config.lua定义好NeiwangIp WaiwangIp NeiwangPass WaiwangPass
