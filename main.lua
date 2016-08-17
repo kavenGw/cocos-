@@ -11,6 +11,11 @@ else
     return
 end
 
+function wait(second)
+    print("等待" .. second)
+    os.execute("sleep " .. second)
+end
+
 --配置表定义好 NeiwangIp NeiwangPass WaiwangIp WaiwangPass
 require("config")
 
@@ -21,7 +26,7 @@ else
     Ip = WaiwangIp
     print("当前外网")
 end
-os.execute("sleep 3")
+wait(3)
 
 local needApk = arg[2];
 if needApk == "apk" then
@@ -34,6 +39,10 @@ require("fileTool")
 require("md5Tool")
 require("ManifestTool")
 require("StringBuffer")
+
+wait(1)
+print("-----更新luagame资源")
+os.execute("svn update /Users/wucan/Desktop/BONS/cocos/root/LuaGame")
 
 print("-----删除luagame下impact 和 lang")
 os.execute("rm -rf " .. "/Users/wucan/Desktop/BONS/cocos/root/LuaGame/res/lang")
@@ -83,7 +92,7 @@ if Neiwang then
 else
     print("开始刷新外网资源")
     deleteDir("outputWai")
-    os.execute("sleep " .. 1)
+    wait(1)
 
     print("编译lua文件")
     os.execute("cocos luacompile -s output/src -d outputWai/src -e -k fqwcxzv1f232dsafz -b fewqvcxzfqadfvxz --disable-compile")
@@ -94,8 +103,7 @@ else
     print("拷贝res")
     copy("output/res","outputWai/res")
 
-    print("等待5秒")
-    os.execute("sleep " .. 5)
+    wait(5)
 
     print("生成outputWai manifest")
     generateManifest("outputWai")
@@ -112,8 +120,7 @@ else
     print("拷贝到Android studio assets目录")
     deleteDir("/Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/app/assets/src")
     deleteDir("/Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/app/assets/res")
-    print("等待5秒")
-    os.execute("sleep " .. 5)
+    wait(5)
     copy("outputWai/src","/Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/app/assets")
     copy("outputWai/res","/Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/app/assets")
 
@@ -121,7 +128,7 @@ end
 
 
 print("完成 5 秒后开始上传服务器")
-os.execute("sleep " .. 5)
+wait(5)
 
 --上传到服务器
 
@@ -130,25 +137,10 @@ local function uploadDile(src,srcd)
     os.execute("scp -r " .. src .. " "..srcd)
 end
 
-print("开始上传文件")
-if Neiwang then
-    print("密码 " .. NeiwangPass)
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/res","root@" .. Ip .. ":/var/www/html/package")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/src","root@" .. Ip .. ":/var/www/html/package")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/project.manifest","root@" .. Ip .. ":/var/www/html")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/version.manifest","root@" .. Ip .. ":/var/www/html")
-else
-    print("密码 " .. WaiwangPass)
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/res","root@" .. Ip .. ":/var/www/html/package")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/src","root@" .. Ip .. ":/var/www/html/package")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/project.manifest","root@" .. Ip .. ":/var/www/html")
-    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/version.manifest","root@" .. Ip .. ":/var/www/html")
-end
-
 
 print("注意GSLua serverlist 中ip")
-print("完成 2 秒后开始生成apk")
-os.execute("sleep " .. 2)
+print("开始生成apk")
+wait(2)
 
 if Neiwang then
     if generateAPK then
@@ -163,10 +155,40 @@ else
     deleteDir("/Users/wucan/Desktop/BONS/cocos/root/Wai/res")
     copy("outputWai/src","/Users/wucan/Desktop/BONS/cocos/root/Wai")
     copy("outputWai/res","/Users/wucan/Desktop/BONS/cocos/root/Wai")
-    -- if generateAPK then
-    --     print("开始生成android安装包")
-    --     os.execute("/Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/gradlew assembleRelease")
-    --     print("拷贝安装包")
-    --     os.execute("mv /Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/app/build/outputs/apk/BONSX-release-unsigned.apk /Users/wucan/Desktop/BONS/策划配置/root/版本安装包/北欧女神像外网.apk")
-    -- end
+    print("提交外网备份到外网svn")
+    wait(1)
+    os.execute("svn commit -m \"外网备份\" /Users/wucan/Desktop/BONS/cocos/root/Wai")
+    if generateAPK then
+        print("开始生成android安装包")
+        print("cd /Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio")
+        print("./gradlew assembleRelease")
+        print("等待手动生成")
+        local isOk = io.read("*number")
+        -- os.execute("/Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/gradlew assembleRelease")
+        print("拷贝安装包")
+        os.execute("mv /Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/app/build/outputs/apk/BONSX-release-unsigned.apk /Users/wucan/Desktop/BONS/策划配置/root/版本安装包/北欧女神像外网.apk")
+
+    end
+end
+
+if generateAPK then
+    print("提交安装包")
+    wait(4)
+    os.execute("svn commit -m \"新安装包\" /Users/wucan/Desktop/BONS/策划配置/root/版本安装包")
+end
+
+
+print("开始上传文件")
+if Neiwang then
+    print("密码 " .. NeiwangPass)
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/res","root@" .. Ip .. ":/var/www/html/package")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/src","root@" .. Ip .. ":/var/www/html/package")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/project.manifest","root@" .. Ip .. ":/var/www/html")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/output/version.manifest","root@" .. Ip .. ":/var/www/html")
+else
+    print("密码 " .. WaiwangPass)
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/res","root@" .. Ip .. ":/var/www/html/package")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/src","root@" .. Ip .. ":/var/www/html/package")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/project.manifest","root@" .. Ip .. ":/var/www/html")
+    uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/version.manifest","root@" .. Ip .. ":/var/www/html")
 end
