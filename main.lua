@@ -151,7 +151,7 @@ if Neiwang then
         print("开始生成android安装包")
         os.execute("cocos compile -s /Users/wucan/Desktop/BONS/cocos/root/BONSX/ -p android -l 19")
         print("拷贝安装包")
-        os.execute("mv /Users/wucan/Desktop/BONS/cocos/root/BONSX/simulator/android/BONSX-debug.apk /Users/wucan/Desktop/BONS/策划配置/root/版本安装包/北欧女神像内网.apk")
+        os.execute("mv /Users/wucan/Desktop/BONS/cocos/root/BONSX/simulator/android/BONSX-debug.apk /Users/wucan/Desktop/BONS/策划配置/root/版本安装包/英雄之歌内网.apk")
     end
 else
     print("外网备份")
@@ -170,7 +170,7 @@ else
         local isOk = io.read("*number")
         -- os.execute("/Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/gradlew assembleRelease")
         print("拷贝安装包")
-        os.execute("mv /Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/app/build/outputs/apk/BONSX-release-unsigned.apk /Users/wucan/Desktop/BONS/策划配置/root/版本安装包/北欧女神像外网.apk")
+        os.execute("mv /Users/wucan/Desktop/BONS/cocos/root/BONSX/frameworks/runtime-src/proj.android-studio/app/build/outputs/apk/BONSX-release-unsigned.apk /Users/wucan/Desktop/BONS/策划配置/root/版本安装包/英雄之歌外网.apk")
 
     end
 end
