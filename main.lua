@@ -175,6 +175,13 @@ else
     end
 end
 
+--提交GSLUa
+print("开始处理GSLua")
+os.execute("cocos luacompile -s GSLua -d GSLua -e -k fqwcxzv1f232dsafz -b fewqvcxzfqadfvxz --disable-compile")
+uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/GSLua/GSLua.luac","root@" .. Ip .. ":/var/www/html/")
+print("GSLua完成")
+wait(2)
+
 if generateAPK then
     print("提交安装包")
     wait(4)
