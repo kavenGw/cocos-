@@ -104,8 +104,13 @@ else
     os.execute("rm -rf " .. "outputWai/src/main.luac")
     print("拷贝main.lua")
     copy("output/src/main.lua","outputWai/src/main.lua")
+    print("删除serverlist")
+    deleteFile("outputWai/src/serverList.luac")
+    copy("serverList_wai.lua","outputWai/src/serverList.lua")
     print("拷贝res")
     copy("output/res","outputWai/res")
+    deleteDir("outputWai/res/zxconfig")
+    os.execute("cocos luacompile -s output/res/zxconfig -d outputWai/res/zxconfig -e -k fqwcxzv1f232dsafz -b fewqvcxzfqadfvxz --disable-compile")
 
     wait(5)
 
@@ -114,11 +119,6 @@ else
 
     print("拷贝mainfest到src")
     copy("outputWai/project.manifest","outputWai/src/project.manifest")
-
-
-    print("删除serverlist")
-    deleteFile("outputWai/src/serverList.luac")
-    copy("serverList_wai.lua","outputWai/src/serverList.lua")
 
     print("删除 android studio assets目录")
     print("拷贝到Android studio assets目录")
