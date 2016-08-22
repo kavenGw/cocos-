@@ -99,7 +99,7 @@ else
     wait(1)
 
     print("编译lua文件")
-    os.execute("cocos luacompile -s output/src -d outputWai/src -e -k fqwcxzv1f232dsafz -b fewqvcxzfqadfvxz --disable-compile")
+    os.execute("cocos luacompile -s output/src -d outputWai/src -e -k " .. LuaCodeK  .. " -b " .. LuaCodeB .. " --disable-compile")
     print("删除main.luac")
     os.execute("rm -rf " .. "outputWai/src/main.luac")
     print("拷贝main.lua")
@@ -110,7 +110,7 @@ else
     print("拷贝res")
     copy("output/res","outputWai/res")
     deleteDir("outputWai/res/zxconfig")
-    os.execute("cocos luacompile -s output/res/zxconfig -d outputWai/res/zxconfig -e -k fqwcxzv1f232dsafz -b fewqvcxzfqadfvxz --disable-compile")
+    os.execute("cocos luacompile -s output/res/zxconfig -d outputWai/res/zxconfig -e -k " .. LuaCodeK ..  " -b " .. LuaCodeB .. " --disable-compile" )
 
     wait(5)
 
@@ -175,13 +175,6 @@ else
     end
 end
 
---提交GSLUa
-print("开始处理GSLua")
-os.execute("cocos luacompile -s GSLua -d GSLua -e -k fqwcxzv1f232dsafz -b fewqvcxzfqadfvxz --disable-compile")
-uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/GSLua/GSLua.luac","root@" .. Ip .. ":/var/www/html/")
-print("GSLua完成")
-wait(2)
-
 if generateAPK then
     print("提交安装包")
     wait(4)
@@ -203,3 +196,11 @@ else
     uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/project.manifest","root@" .. Ip .. ":/var/www/html")
     uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/outputWai/version.manifest","root@" .. Ip .. ":/var/www/html")
 end
+
+
+--提交GSLUa
+print("开始处理GSLua")
+os.execute("cocos luacompile -s GSLua -d GSLua -e -k " .. LuaCodeK .. " -b " .. LuaCodeB .. " --disable-compile")
+uploadDile("/Users/wucan/Desktop/吴灿/项目新时代/cocos热更新工具/GSLua/GSLua.luac","root@" .. Ip .. ":/var/www/html/")
+print("GSLua完成")
+wait(2)
